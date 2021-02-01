@@ -5,7 +5,7 @@ Key Highlights : Transparent Background , No fixed width/hight and accepts many 
 
 V3 Target : Adding show and hide animations
 
-NOTE : Republishing this extension without giving link of the repo/credit to the author (herein XyberNeo) is prohibited 
+NOTE : Republishing this extension without giving link of the repo is prohibited 
 
 Docs : https://docs.xyberneo.com/topsheet-extension
 

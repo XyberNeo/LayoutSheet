@@ -1,7 +1,7 @@
 # TopSheet
 Java Codes for TopSheet Extension for MIT App Inventor 2 Offsprings
 
-Key Heghlights : Transparent Background , No fixed width/hight and accepts many components such as card view and arrangements
+Key Highlights : Transparent Background , No fixed width/hight and accepts many components such as card view and arrangements
 
 V2 Target : Adding open and close animations
 

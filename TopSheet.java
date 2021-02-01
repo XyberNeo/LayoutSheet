@@ -52,7 +52,13 @@ public class TopSheet extends AndroidNonvisibleComponent implements DialogInterf
     public float DimAmount(){
         return dimAmount;
     }
-    @SimpleFunction(description="Shows the given component as topsheet")
+        @SimpleFunction()
+    public void Show(){
+        if (dialog != null){
+            dialog.show();
+        }
+    }
+    @SimpleFunction(description="Register the given component as topsheet")
     public void Register(AndroidViewComponent component,int height,int width){
         View view = component.getView();
         ((ViewGroup)view.getParent()).removeView(view);
@@ -69,6 +75,12 @@ public class TopSheet extends AndroidNonvisibleComponent implements DialogInterf
         params.height = getP(height);
         params.gravity = Gravity.TOP;
         dialog.getWindow().setAttributes(params);
+    }
+        @SimpleFunction()
+    public void Show(){
+        if (dialog != null){
+            dialog.show();
+        }
     }
     @SimpleFunction()
     public void Dismiss(){

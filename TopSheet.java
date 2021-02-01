@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.*;
 import com.google.appinventor.components.annotations.*;
+import com.google.appinventor.components.runtime.*;
 import com.google.appinventor.components.common.*;
 
 @DesignerComponent(version = 2,

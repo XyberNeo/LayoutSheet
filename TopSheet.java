@@ -78,7 +78,6 @@ public class TopSheet extends AndroidNonvisibleComponent implements DialogInterf
     public void Show(){
         if (dialog != null){
 		dialog.show();
-		dialog = null;
 		}
     }
     @SimpleFunction(description="Register the given component as topsheet")

@@ -1,4 +1,5 @@
 package com.xyberneo.topsheet;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -44,7 +45,8 @@ public class TopSheet extends AndroidNonvisibleComponent implements DialogInterf
         return p == -1 || p == -2 ? p :  Math.round(p / deviceDensity);
     }
 
-    @SimpleProperty
+    @DesignerProperty(defaultValue = "True", editorType = "boolean") 
+	@SimpleProperty(description = "To set the dialog cancleable")
     public void Cancelable(final boolean b){
         isCancelable = b;
     }
@@ -54,7 +56,8 @@ public class TopSheet extends AndroidNonvisibleComponent implements DialogInterf
         return isCancelable;
     }
 
-    @SimpleProperty
+    @DesignerProperty(defaultValue = "0.5",editorType = "string")
+	@SimpleProperty(description = "To set the dim amount")
     public void DimAmount(final float d){
         dimAmount = d;
     }

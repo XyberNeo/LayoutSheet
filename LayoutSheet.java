@@ -11,12 +11,12 @@ import com.google.appinventor.components.runtime.*;
 import com.google.appinventor.components.common.*;
 
 @DesignerComponent(version = 2,
-        description =  "An extension to create TopSheet<br><a href = \"https://https://github.com/XyberNeo/LayoutSheet/\" target = \"_blank\">GitHub Repository</a><br><a href = \"https://docs.xyberneo.com/\" target = \"_blank\">Layout Sheet Documentation</a>",
+        description =  "An extension to create LayoutSheet<br><a href = \"//www.github.com/XyberNeo/LayoutSheet/\" target = \"_blank\">GitHub Repository</a><br><a href = \"https://docs.xyberneo.com/\" target = \"_blank\">Layout Sheet Documentation</a>",
         nonVisible = true,
         iconName = "https://res.cloudinary.com/andromedaviewflyvipul/image/upload/c_scale,w_16/v1612012433/topsheet.png",
         category = ComponentCategory.EXTENSION)
 @SimpleObject(external=true)
-public class TopSheet extends AndroidNonvisibleComponent implements DialogInterface.OnDismissListener, DialogInterface.OnShowListener {
+public class LayoutSheet extends AndroidNonvisibleComponent implements DialogInterface.OnDismissListener, DialogInterface.OnShowListener {
 
     public float deviceDensity;
     public float dimAmount = 0.2f;
@@ -27,7 +27,7 @@ public class TopSheet extends AndroidNonvisibleComponent implements DialogInterf
 
     public Dialog dialog;
 
-    public TopSheet(final ComponentContainer container) {
+    public LayoutSheet(final ComponentContainer container) {
         super(container.$form());
         context = container.$context();
         deviceDensity = container.$form().deviceDensity();
@@ -80,7 +80,7 @@ public class TopSheet extends AndroidNonvisibleComponent implements DialogInterf
 		dialog.show();
 		}
     }
-    @SimpleFunction(description="Register the given component as topsheet")
+    @SimpleFunction(description="Register the given component as Layoutsheet")
     public void Register(final AndroidViewComponent component, final int height, final int width){
         View view = component.getView();
         ((ViewGroup) view.getParent()).removeView(view);

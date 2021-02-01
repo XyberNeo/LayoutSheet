@@ -23,6 +23,7 @@ public class TopSheet extends AndroidNonvisibleComponent implements DialogInterf
 
     public boolean isCancelable;
     public final Context context;
+	public int gravity;
 
     public Dialog dialog;
 
@@ -30,19 +31,19 @@ public class TopSheet extends AndroidNonvisibleComponent implements DialogInterf
         super(container.$form());
         context = container.$context();
         deviceDensity = container.$form().deviceDensity();
-
-        initializeDialog();
-    }
-
-    private void initializeDialog() {
-        dialog = new Dialog(context);
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.setOnDismissListener(this);
+		
+		initializeDialog();
     }
 
     public int calculate(final int p){
         return p == -1 || p == -2 ? p :  Math.round(p / deviceDensity);
+    }
+	
+	private void initializeDialog() {
+        dialog = new Dialog(context);
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setOnDismissListener(this);
     }
 
     @DesignerProperty(defaultValue = "True", editorType = "boolean") 
@@ -66,10 +67,19 @@ public class TopSheet extends AndroidNonvisibleComponent implements DialogInterf
     public float DimAmount(){
         return dimAmount;
     }
+	
+	@DesignerProperty(defaultValue = "35",editorType = "int")
+	@SimpleProperty(description = "To set the dim amount")
+    public void gravity(final int d){
+        gravity = d;
+    }
 
     @SimpleFunction
     public void Show(){
-        if (dialog != null) dialog.show();
+        if (dialog != null){
+		dialog.show();
+		dialog = null;
+		}
     }
     @SimpleFunction(description="Register the given component as topsheet")
     public void Register(final AndroidViewComponent component, final int height, final int width){
@@ -78,13 +88,13 @@ public class TopSheet extends AndroidNonvisibleComponent implements DialogInterf
 
         if (dialog == null) initializeDialog();
 
-        dialog.setCancelable(isCancelable);
-        dialog.getWindow().setDimAmount(dimAmount);
         dialog.setContentView(view);
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.width = calculate(width);
         params.height = calculate(height);
-        params.gravity = Gravity.TOP;
+        params.gravity = gravity;
+		dialog.setCancelable(isCancelable);
+		dialog.getWindow().setDimAmount(dimAmount);
         dialog.getWindow().setAttributes(params);
     }
 

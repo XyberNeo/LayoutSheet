@@ -1,6 +1,6 @@
 /*
 Last Updated : 1 Feb, 2021 at 10 : 24 : 43 IST
-Author : XyberNeo, Contributors : Sunny Gupta AKA vknown360 and XomaDev AKA Kumarasway BG
+Author : XyberNeo, Contributors : Sunny Gupta AKA vknow360 and XomaDev AKA Kumarasway BG
 For Support and Queries get in touch via telegram (t.me/Clawser) or mail it to us at admin@xyberneo.com
 Join our support group at : t.me/XyberNeoExtensions and Broadcasting channel at : t.me/XyberNeo
 */

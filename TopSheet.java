@@ -15,94 +15,106 @@ import com.google.appinventor.components.common.*;
         iconName = "https://res.cloudinary.com/andromedaviewflyvipul/image/upload/c_scale,w_16/v1612012433/topsheet.png",
         category = ComponentCategory.EXTENSION)
 @SimpleObject(external=true)
-public class TopSheet extends AndroidNonvisibleComponent implements DialogInterface.OnDismissListener{
+public class TopSheet extends AndroidNonvisibleComponent implements DialogInterface.OnDismissListener, DialogInterface.OnShowListener {
+
     public float deviceDensity;
     public float dimAmount = 0.2f;
+
     public boolean isCancelable;
-    public Context context;
+    public final Context context;
+
     public Dialog dialog;
-    public TopSheet(ComponentContainer container){
+
+    public TopSheet(final ComponentContainer container) {
         super(container.$form());
         context = container.$context();
         deviceDensity = container.$form().deviceDensity();
+
+        initializeDialog();
+    }
+
+    private void initializeDialog() {
         dialog = new Dialog(context);
-        dialog.setOnDismissListener(this);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setOnDismissListener(this);
     }
-    public int getP(int p){
-        if (p == -1 || p == -2){
-            return p;
-        }
-        return Math.round(p /deviceDensity);
+
+    public int calculate(final int p){
+        return p == -1 || p == -2 ? p :  Math.round(p / deviceDensity);
     }
-    @SimpleProperty()
-    public void Cancelable(boolean b){
+
+    @SimpleProperty
+    public void Cancelable(final boolean b){
         isCancelable = b;
     }
-    @SimpleProperty()
+
+    @SimpleProperty
     public boolean IsCancelable(){
         return isCancelable;
     }
-    @SimpleProperty()
-    public void DimAmount(float d){
+
+    @SimpleProperty
+    public void DimAmount(final float d){
         dimAmount = d;
     }
-    @SimpleProperty()
+
+    @SimpleProperty
     public float DimAmount(){
         return dimAmount;
     }
-        @SimpleFunction()
+
+    @SimpleFunction
     public void Show(){
-        if (dialog != null){
-            dialog.show();
-        }
+        if (dialog != null) dialog.show();
     }
     @SimpleFunction(description="Register the given component as topsheet")
-    public void Register(AndroidViewComponent component,int height,int width){
+    public void Register(final AndroidViewComponent component, final int height, final int width){
         View view = component.getView();
-        ((ViewGroup)view.getParent()).removeView(view);
-        if (dialog == null){
-            dialog = new Dialog(context);
-            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
+        ((ViewGroup) view.getParent()).removeView(view);
+
+        if (dialog == null) initializeDialog();
+
         dialog.setCancelable(isCancelable);
         dialog.getWindow().setDimAmount(dimAmount);
         dialog.setContentView(view);
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-        params.width = getP(width);
-        params.height = getP(height);
+        params.width = calculate(width);
+        params.height = calculate(height);
         params.gravity = Gravity.TOP;
         dialog.getWindow().setAttributes(params);
     }
-        @SimpleFunction()
-    public void Show(){
-        if (dialog != null){
-            dialog.show();
-        }
-    }
-    @SimpleFunction()
+
+    @SimpleFunction
     public void Dismiss(){
         if (dialog != null) {
             dialog.dismiss();
             dialog = null;
         }
     }
-    @SimpleFunction()
+
+    @SimpleFunction
     public boolean IsShowing(){
-        if (dialog == null){
-            return false;
-        }
-        return dialog.isShowing();
+        return dialog == null ? false : dialog.isShowing();
     }
-    @SimpleEvent()
+
+    @SimpleEvent(description = "Fired when dialog dismissed")
     public void Dismissed(){
-        EventDispatcher.dispatchEvent(this,"Dimissed");
+        EventDispatcher.dispatchEvent(this,"Dismissed");
+    }
+
+    @SimpleEvent(description = "Fired when dialog is shown")
+    public void Shown(){
+        EventDispatcher.dispatchEvent(this,"Shown");
     }
 
     @Override
-    public void onDismiss(DialogInterface dialogInterface) {
+    public void onDismiss(final DialogInterface dialogInterface) {
         Dismissed();
+    }
+
+    @Override
+    public void onShow(DialogInterface dialogInterface) {
+        Shown();
     }
 }

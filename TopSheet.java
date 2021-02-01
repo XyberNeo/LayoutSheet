@@ -8,7 +8,7 @@ import android.view.*;
 import com.google.appinventor.components.annotations.*;
 import com.google.appinventor.components.common.*;
 
-@DesignerComponent(version = 1,
+@DesignerComponent(version = 2,
         description =  "An extension to create TopSheet<br>Developed By Team XyberNeo<br><a href = \"https://docs.xyberneo.com/\" target = \"_blank\">Top Sheet Documentation</a>",
         nonVisible = true,
         iconName = "https://res.cloudinary.com/andromedaviewflyvipul/image/upload/c_scale,w_16/v1612012433/topsheet.png",

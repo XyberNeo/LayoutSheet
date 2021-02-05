@@ -4,7 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.*;
 import android.view.*;
 import com.google.appinventor.components.annotations.*;
 import com.google.appinventor.components.runtime.*;
@@ -23,7 +23,8 @@ public class LayoutSheet extends AndroidNonvisibleComponent implements DialogInt
 
     public boolean isCancelable;
     public final Context context;
-	public int gravity;
+	public int round;
+	public int tipColor;
 
     public Dialog dialog;
 
@@ -68,10 +69,56 @@ public class LayoutSheet extends AndroidNonvisibleComponent implements DialogInt
         return dimAmount;
     }
 	
-	@DesignerProperty(defaultValue = "35",editorType = "int")
+	@DesignerProperty(defaultValue = "50",editorType = "int")
 	@SimpleProperty(description = "To set the dim amount")
-    public void gravity(final int d){
-        gravity = d;
+    public void RoundCornersAmount(final int d){
+        round = d;
+    }
+	
+	@DesignerProperty(defaultValue = "&HFF000000", editorType = "color")
+    @SimpleProperty
+    public void BackgoundColor(int argb) {
+        tipColor = argb;
+    }
+	
+	@SimpleProperty
+    public final int BottomCenter() {
+        return 81;
+    }
+
+    @SimpleProperty
+    public final int BottomLeft() {
+        return 83;
+    }
+
+    @SimpleProperty
+    public final int BottomRight() {
+        return 85;
+    }
+
+    @SimpleProperty
+    public final int CenterLeft() {
+        return 19;
+    }
+
+    @SimpleProperty
+    public final int CenterRight() {
+        return 21;
+    }
+
+    @SimpleProperty
+    public final int TopCenter() {
+        return 49;
+    }
+
+    @SimpleProperty
+    public final int TopLeft() {
+        return 51;
+    }
+
+    @SimpleProperty
+    public final int TopRight() {
+        return 53;
     }
 
     @SimpleFunction
@@ -80,9 +127,10 @@ public class LayoutSheet extends AndroidNonvisibleComponent implements DialogInt
 		dialog.show();
 		}
     }
-    @SimpleFunction(description="Register the given component as Layoutsheet")
-    public void Register(final AndroidViewComponent component, final int height, final int width){
-        View view = component.getView();
+    @SimpleFunction(description="Register the given component as LayoutSheet")
+    public void Register(final AndroidViewComponent component, final int height, final int width, int gravity, float leftTopRudius, float rightTopRudius, float leftBottomRudius, float rightBottomRudius){
+        float[] Radii = {leftTopRudius, leftTopRudius, rightTopRudius, rightTopRudius, leftBottomRudius, leftBottomRudius, rightBottomRudius, rightBottomRudius};
+		View view = component.getView();
         ((ViewGroup) view.getParent()).removeView(view);
 
         if (dialog == null) initializeDialog();
@@ -95,10 +143,22 @@ public class LayoutSheet extends AndroidNonvisibleComponent implements DialogInt
 		dialog.setCancelable(isCancelable);
 		dialog.getWindow().setDimAmount(dimAmount);
         dialog.getWindow().setAttributes(params);
+		
+		GradientDrawable shape = new GradientDrawable();
+		shape.setCornerRadii(Radii);
+		shape.setColor(tipColor);
+		component.getView().setBackgroundDrawable(shape);
     }
 
     @SimpleFunction
     public void Dismiss(){
+        if (dialog != null) {
+            dialog.dismiss();
+        }
+    }
+	
+	@SimpleFunction
+    public void UnRegister(){
         if (dialog != null) {
             dialog.dismiss();
             dialog = null;

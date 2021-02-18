@@ -10,4 +10,4 @@ NOTE : Republishing this extension without giving link of the repo is prohibited
 
 Docs : https://docs.xyberneo.com/topsheet-extension
 
-Download Extension : https://www.xyberneo.com/Extension
+Download Extension : https://www.extensions.xyberneo.com
